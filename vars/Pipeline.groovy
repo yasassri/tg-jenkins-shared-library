@@ -5,7 +5,6 @@ package org.wso2.tg.jenkins.pipeline
 // The pipeline should resite in a call block
 def call() {
     pipeline {
-        agent any
         stages {
             stage('Testing') {
                 steps {
