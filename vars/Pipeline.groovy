@@ -11,6 +11,7 @@ def call() {
             stage('Testing') {
                 steps {
                     echo "This is a test"
+                    echo()
                 }
             }
         }
