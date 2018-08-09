@@ -2,6 +2,8 @@
 
 import org.wso2.tg.jenkins.util.Common
 
+@Library('shared_library') _
+
 // First we need to validate all the properties, variables for not null or empty in //vars
 
 // The pipeline should resite in a call block
