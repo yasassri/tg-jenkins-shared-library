@@ -5,12 +5,6 @@ package org.wso2.tg.jenkins.pipeline
 // The pipeline should resite in a call block
 def call() {
     pipeline {
-        agent {
-            node {
-                label ""
-                customWorkspace '/home/ubuntu/tmp'
-            }
-        }
         stages {
             stage('Testing') {
                 steps {
