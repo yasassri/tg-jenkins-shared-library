@@ -5,8 +5,8 @@ import org.wso2.tg.jenkins.util.Common
 // The pipeline should resite in a call block
 def call() {
 
-    def a = new Common()
-    a.echoFunc()
+//    def a = new Common()
+    echoFunc()
 
 //    pipeline {
 //        agent any
