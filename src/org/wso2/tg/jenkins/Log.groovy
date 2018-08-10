@@ -3,19 +3,16 @@ package org.wso2.tg.jenkins
 import org.wso2.tg.jenkins.util.Common
 
 void info(message) {
-    def a = new Common()
     def time = getTimestamp()
     echo "[INFO] : $time : $message"
 }
 
 void error(message) {
-    def a = new Common()
     def time = getTimestamp()
     echo "[ERROR] : $time : $message"
 }
 
 void warn(message) {
-    def a = new Common()
     def time = getTimestamp()
     echo "[WARN] : $time : $message"
 }
