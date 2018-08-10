@@ -8,7 +8,7 @@ import org.wso2.tg.jenkins.executors.TestExecutor
 
 // The pipeline should resite in a call block
 def call() {
-    def jobName = "test"
+    def jobName = "dev"
     if (jobName == "test") {
         pipeline {
             agent any
@@ -27,6 +27,7 @@ def call() {
     } else {
 
         def alert = new Slack()
+        def email = new Email()
         def commonUtils = new Common()
         def testExecutor = new TestExecutor()
         properties = null
@@ -244,26 +245,14 @@ def call() {
                                 //Send email for failed results.
                                 if (fileExists("${PWD}/builds/SummarizedEmailReport.html")) {
                                     def emailBody = readFile "${PWD}/builds/SummarizedEmailReport.html"
-                                    emailext(to: "${EMAIL_TO_LIST},kasung@wso2.com,lasanthad@wso2.com,yasassri@wso2.com",
-                                            subject: "'${env.JOB_NAME}' Integration Test Failure! #(${env.BUILD_NUMBER})",
-                                            body: "${emailBody}", mimeType: 'text/html'
-                                    )
+                                    email.send("'${env.JOB_NAME}' Integration Test Failure! #(${env.BUILD_NUMBER})", "${emailBody}")
                                 } else {
                                     echo "No SummarizedEmailReport.html file found!!"
-                                    emailext(to: 'sameeraw@wso2.com,lasanthad@wso2.com,yasassri@wso2.com,kasung@wso2.com',
-                                            subject: "'${env.JOB_NAME}'#(${env.BUILD_NUMBER}) - SummarizedEmailReport.html file not found",
-                                            body: "Could not find the summarized email report ${env.BUILD_URL}. This is an error in " +
-                                                    "testgrid.",
-                                            mimeType: 'text/html', attachmentsPattern: "**/builds/*.png"
-                                    )
+                                    email.send("'${env.JOB_NAME}'#(${env.BUILD_NUMBER}) - SummarizedEmailReport.html " +
+                                            "file not found", "Could not find the summarized email report ${env.BUILD_URL}. This is an error in " +
+                                            "testgrid.")
                                 }
                             }
-                            // Delete logs and reports after upload
-                            //     dir("${TESTGRID_HOME}/jobs/${PRODUCT}") {
-                            //         sh """
-                            // find . -maxdepth 1 -type f \\( -name "*.log" -o -name "*.html" \\) -delete
-                            // """
-                            //     }
                         } catch (e) {
                             currentBuild.result = "FAILED"
                         } finally {
