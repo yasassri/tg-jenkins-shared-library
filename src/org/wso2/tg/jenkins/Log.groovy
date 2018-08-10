@@ -4,12 +4,13 @@ class Log implements Serializable {
 
     void info (String message) {
         def time = getTimestamp()
-        echo "[INFO] : " + time " : " + $message
+        def msg = "[INFO] : " + time + " : " + $message
+        echo msg.toString()
     }
 
     void error (String message) {
         def time = getTimestamp()
-        echo "[ERROR] : " + time " : " + $message
+       // echo "[ERROR] : " + time " : " + $message
     }
 
     void warn (String message) {
