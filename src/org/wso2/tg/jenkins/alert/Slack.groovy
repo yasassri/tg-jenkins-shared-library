@@ -6,7 +6,7 @@ package org.wso2.tg.jenkins.alert
  * @param phase build phase
  * @param channel channel
  */
-def sendNotificcationn(String buildStatus = 'STARTED', phase, channel) {
+def sendNotification(String buildStatus = 'STARTED', phase, channel) {
     // build status of null means successful
     buildStatus = buildStatus ?: 'SUCCESS'
 

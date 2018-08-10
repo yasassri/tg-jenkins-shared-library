@@ -10,7 +10,7 @@ def runPlan(tPlan, node) {
     def notfier = new Slack()
     def awsHelper = new AWSUtils()
     name = commonUtil.getParameters("/testgrid/testgrid-home/jobs/${PRODUCT}/${tPlan}")
-    notfier.notifyBuild("STARTED", "parallel \n Infra : " + name, "#build_status_verbose")
+    notfier.sendNotification("STARTED", "parallel \n Infra : " + name, "#build_status_verbose")
     echo "Executing Test Plan : ${tPlan} On node : ${node}"
     try {
         echo "Running Test-Plan: ${tPlan}"
@@ -35,7 +35,7 @@ def runPlan(tPlan, node) {
         echo "Error : ${err}"
         currentBuild.result = 'UNSTABLE'
     } finally {
-        notfier.notifyBuild(currentBuild.result, "Parallel \n Infra : " + name, "#build_status_verbose")
+        notfier.sendNotification(currentBuild.result, "Parallel \n Infra : " + name, "#build_status_verbose")
     }
     echo "RESULT: ${currentBuild.result}"
 
