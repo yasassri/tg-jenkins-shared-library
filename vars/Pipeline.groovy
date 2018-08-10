@@ -5,8 +5,8 @@ import org.wso2.tg.jenkins.alert.Slack
 
 // The pipeline should resite in a call block
 def call() {
-    def name = "b"
-    if (name == "a") {
+    def name1 = "b"
+    if (name1 == "a") {
         pipeline {
             agent any
             stages {
