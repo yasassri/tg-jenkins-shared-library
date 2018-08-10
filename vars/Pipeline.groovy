@@ -65,8 +65,8 @@ def call() {
                     steps {
                         script {
                             try {
-                                alert.notifyBuild('STARTED', "Initiation", "#build_status_verbose")
-                                alert.notifyBuild('STARTED', "Initiation", "#build_status")
+                                alert.sendNotificcationn('STARTED', "Initiation", "#build_status_verbose")
+                                alert.sendNotificcationn('STARTED', "Initiation", "#build_status")
                                 echo pwd()
                                 deleteDir()
 
@@ -148,7 +148,7 @@ def call() {
                             } catch (e) {
                                 currentBuild.result = "FAILED"
                             } finally {
-                                alert.notifyBuild(currentBuild.result, "preparation", "#build_status_verbose")
+                                alert.sendNotificcationn(currentBuild.result, "preparation", "#build_status_verbose")
                             }
                         }
                     }
@@ -196,7 +196,7 @@ def call() {
                                 parallel tests
                             } catch (e) {
                                 currentBuild.result = "FAILED"
-                                alert.notifyBuild(currentBuild.result, "Parallel", "#build_status_verbose")
+                                alert.sendNotificcationn(currentBuild.result, "Parallel", "#build_status_verbose")
                             }
                         }
                     }
@@ -262,8 +262,8 @@ def call() {
                         } catch (e) {
                             currentBuild.result = "FAILED"
                         } finally {
-                            alert.notifyBuild(currentBuild.result, "completed", "#build_status")
-                            alert.notifyBuild(currentBuild.result, "completed", "#build_status_verbose")
+                            alert.sendNotificcationn(currentBuild.result, "completed", "#build_status")
+                            alert.sendNotificcationn(currentBuild.result, "completed", "#build_status_verbose")
                         }
                     }
                 }
