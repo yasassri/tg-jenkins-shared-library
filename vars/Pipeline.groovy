@@ -10,7 +10,7 @@ def call() {
             stage('Testing') {
                 steps {
                     echo "This is a test"
-                    echoFunc
+                    echoFunc()
                 }
             }
         }
