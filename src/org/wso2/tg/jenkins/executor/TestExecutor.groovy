@@ -36,7 +36,7 @@ def runPlan(tPlan, node) {
     }
 }
 
-String getParameters(file) {
+private String getParameters(file) {
     def tpyaml = readFile(file)
     def m = tpyaml =~ /(parameters:)([A-z \n:'0-9\.-]*)(provisioners)/
     // echo tpyaml
