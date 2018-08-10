@@ -14,7 +14,7 @@ def call() {
                         script {
                             echo "This is a test"
                             def a = new Common()
-                            a.echoFunc()
+                            a.echoFunc("Yes")
                         }
                     }
                 }
