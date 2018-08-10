@@ -1,6 +1,7 @@
 import org.wso2.tg.jenkins.Log
 import org.wso2.tg.jenkins.alert.Slack
 import org.wso2.tg.jenkins.util.Common
+import org.wso2.tg.jenkins.executors
 
 // First we need to validate all the properties, variables for not null or empty in //vars
 
@@ -26,6 +27,7 @@ def call() {
 
         def alert = new Slack()
         def commonUtils = new Common()
+        def testExecutor = new TestExecutor()
         properties = null
 
         pipeline {
@@ -167,7 +169,7 @@ def call() {
                                 def files = findFiles(glob: '**/test-plans/*.yaml')
                                 for (int f = 1; f < parallelExecCount + 1 && f <= files.length; f++) {
                                     def executor = f
-                                    name = getParameters("${PWD}/test-plans/" + files[f - 1].name)
+                                    name = commonUtils.getParameters("${PWD}/test-plans/" + files[f - 1].name)
                                     echo name
                                     tests["${name}"] = {
                                         node {
@@ -182,12 +184,12 @@ def call() {
                                                     if (executor == parallelExecCount) {
                                                         for (int i = processFileCount * (executor - 1); i < files.length; i++) {
                                                             // Execution logic
-                                                            runPlan(files[i], "node1")
+                                                            testExecutor.runPlan(files[i], "node1")
                                                         }
                                                     } else {
                                                         for (int i = 0; i < processFileCount; i++) {
                                                             int fileNo = processFileCount * (executor - 1) + i
-                                                            runPlan(files[fileNo], "node1")
+                                                            testExecutor.runPlan(files[fileNo], "node1")
                                                         }
                                                     }
                                                 }
