@@ -1,11 +1,16 @@
 package org.wso2.tg.jenkins.executors
 
 import org.wso2.tg.jenkins.util.Common
+import org.wso2.tg.jenkins.util.AWSUtils
+import org.wso2.tg.jenkins.alert.Slack
+
 
 def runPlan(tPlan, node) {
     def commonUtil = new Common()
+    def notfier = new Slack()
+    def awsHelper = new AWSUtils()
     name = commonUtil.getParameters("/testgrid/testgrid-home/jobs/${PRODUCT}/${tPlan}")
-    notifyBuild("STARTED", "parallel \n Infra : " + name, "#build_status_verbose")
+    notfier.notifyBuild("STARTED", "parallel \n Infra : " + name, "#build_status_verbose")
     echo "Executing Test Plan : ${tPlan} On node : ${node}"
     try {
         echo "Running Test-Plan: ${tPlan}"
@@ -30,12 +35,12 @@ def runPlan(tPlan, node) {
         echo "Error : ${err}"
         currentBuild.result = 'UNSTABLE'
     } finally {
-        notifyBuild(currentBuild.result, "Parallel \n Infra : " + name, "#build_status_verbose")
+        notfier.notifyBuild(currentBuild.result, "Parallel \n Infra : " + name, "#build_status_verbose")
     }
     echo "RESULT: ${currentBuild.result}"
 
     script {
-        uploadToS3()
+        awsHelper.uploadToS3()
     }
 }
 
