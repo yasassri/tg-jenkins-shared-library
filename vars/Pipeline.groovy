@@ -6,17 +6,15 @@ import org.wso2.tg.jenkins.util.Common
 def call() {
 
     def a = new Common()
-    a.echoFunc()
-
-//    pipeline {
-//        agent any
-//        stages {
-//            stage('Testing') {
-//                steps {
-//                    echo "This is a test"
-//                    echoFunc()
-//                }
-//            }
-//        }
-//    }
+    pipeline {
+        agent any
+        stages {
+            stage('Testing') {
+                steps {
+                    echo "This is a test"
+                    a.echoFunc()
+                }
+            }
+        }
+    }
 }
