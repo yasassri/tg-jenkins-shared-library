@@ -5,13 +5,13 @@ import org.wso2.tg.jenkins.util.*
 
 // The pipeline should resite in a call block
 def call() {
+    echoFunc()
     pipeline {
         agent any
         stages {
             stage('Testing') {
                 steps {
                     echo "This is a test"
-                    echoFunc()
                 }
             }
         }
