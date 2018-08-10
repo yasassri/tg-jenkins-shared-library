@@ -1,4 +1,4 @@
-package org.wso2.tg.jenkins.executor
+package org.wso2.tg.jenkins.executors
 
 def runPlan(tPlan, node) {
     name = getParameters("/testgrid/testgrid-home/jobs/${PRODUCT}/${tPlan}")
