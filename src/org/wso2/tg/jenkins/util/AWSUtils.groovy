@@ -1,9 +1,7 @@
-package org.wso2.tg.jenkins
+package org.wso2.tg.jenkins.util
 
 def getS3BucketName() {
-    script {
-        loadProperties()
-    }
+    loadProperties()
     def bucket = properties['AWS_S3_BUCKET_NAME']
     if ("${bucket}" == "null") {
         bucket = "unknown"
