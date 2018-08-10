@@ -1,6 +1,6 @@
-@Library('shared_library')
+@Library("shared_library")
 
-import org.wso2.tg.jenkins.util.Common
+import org.wso2.tg.jenkins.util.*
 
 // First we need to validate all the properties, variables for not null or empty in //vars
 
@@ -12,7 +12,7 @@ def call() {
             stage('Testing') {
                 steps {
                     echo "This is a test"
-                    Common.echoFunc()
+                    echoFunc()
                 }
             }
         }
