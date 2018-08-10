@@ -1,3 +1,5 @@
+@Library('shared_library') _
+
 import org.wso2.tg.jenkins.util.Common
 
 // First we need to validate all the properties, variables for not null or empty in //vars
