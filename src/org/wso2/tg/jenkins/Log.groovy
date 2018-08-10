@@ -2,21 +2,21 @@ package org.wso2.tg.jenkins
 
 class Log implements Serializable {
 
-    void info (String message) {
+    void info () {
         def time = getTimestamp()
         def msg = "[INFO] : " + time + " : " + message
         echo "Yes Yes"
     }
 
-    void error (String message) {
-        def time = getTimestamp()
-       // echo "[ERROR] : " + time " : " + $message
-    }
-
-    void warn (String message) {
-        def time = getTimestamp()
-        //echo "[WARN] : $time : $message"
-    }
+//    void error (String message) {
+//        def time = getTimestamp()
+//       // echo "[ERROR] : " + time " : " + $message
+//    }
+//
+//    void warn (String message) {
+//        def time = getTimestamp()
+//        //echo "[WARN] : $time : $message"
+//    }
 
     private def getTimestamp(Date date = new Date()){
         return date.format('yyyyMMddHHmmss',TimeZone.getTimeZone('GMT')) as String
