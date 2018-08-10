@@ -5,7 +5,7 @@ import org.wso2.tg.jenkins.util.Common
 
 // The pipeline should resite in a call block
 def call() {
-    echoFunc()
+    org.wso2.tg.jenkins.util.Common.echoFunc()
     pipeline {
         agent any
         stages {
