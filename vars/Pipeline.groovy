@@ -90,13 +90,12 @@ def call() {
                                 writeFile file: "${INFRA_LOCATION}/deploy.sh", text: '#!/bin/sh'
 
                                 sh """
-              echo ${TESTGRID_NAME}
-              cd ${TESTGRID_DIST_LOCATION}
-              cd ${TESTGRID_NAME}
-
-              sed -i 's/-Xms256m -Xmx1024m/-Xmx2G -Xms2G/g' testgrid
-              """
-
+                                  echo ${TESTGRID_NAME}
+                                  cd ${TESTGRID_DIST_LOCATION}
+                                  cd ${TESTGRID_NAME}
+                    
+                                  sed -i 's/-Xms256m -Xmx1024m/-Xmx2G -Xms2G/g' testgrid
+                                """
                                 // Get testgrid.yaml from jenkins managed files
                                 configFileProvider(
                                         [configFile(fileId: "wso2am-intg-testgrid-yaml", targetLocation:
@@ -105,9 +104,9 @@ def call() {
 
                                 configFileProvider([configFile(fileId: '3a63892b-06b8-483a-8a0d-74dffaf69c3d', targetLocation: 'workspace/testgrid-key.pem', variable: 'TESTGRIDKEY')]) {
                                     sh """
-                echo 'keyFileLocation: workspace/testgrid-key.pem' > ${JOB_CONFIG_YAML_PATH}
-                chmod 400 workspace/testgrid-key.pem
-                """
+                                        echo 'keyFileLocation: workspace/testgrid-key.pem' > ${JOB_CONFIG_YAML_PATH}
+                                        chmod 400 workspace/testgrid-key.pem
+                                    """
                                 }
 
                                 sh """
@@ -143,11 +142,11 @@ def call() {
                                 stash name: "${JOB_CONFIG_YAML}", includes: "${JOB_CONFIG_YAML}"
 
                                 sh """
-              cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
-              ./testgrid generate-test-plan \
-                  --product ${PRODUCT} \
-                  --file ${JOB_CONFIG_YAML_PATH}
-              """
+                                  cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
+                                  ./testgrid generate-test-plan \
+                                      --product ${PRODUCT} \
+                                      --file ${JOB_CONFIG_YAML_PATH}
+                                """
                                 dir("${PWD}") {
                                     stash name: "test-plans", includes: "test-plans/**"
                                 }
@@ -158,7 +157,6 @@ def call() {
                             }
                         }
                     }
-
                 }
 
                 stage('parallel-run') {
@@ -166,39 +164,7 @@ def call() {
                         script {
                             def name = "unknown"
                             try {
-                                def parallelExecCount = 12
-                                def tests = [:]
-                                def files = findFiles(glob: '**/test-plans/*.yaml')
-                                for (int f = 1; f < parallelExecCount + 1 && f <= files.length; f++) {
-                                    def executor = f
-                                    name = commonUtils.getParameters("${PWD}/test-plans/" + files[f - 1].name)
-                                    echo name
-                                    tests["${name}"] = {
-                                        node {
-                                            stage("Parallel Executor : ${executor}") {
-                                                script {
-                                                    int processFileCount = 0;
-                                                    if (files.length < parallelExecCount) {
-                                                        processFileCount = 1;
-                                                    } else {
-                                                        processFileCount = files.length / parallelExecCount;
-                                                    }
-                                                    if (executor == parallelExecCount) {
-                                                        for (int i = processFileCount * (executor - 1); i < files.length; i++) {
-                                                            // Execution logic
-                                                            testExecutor.runPlan(files[i], "node1")
-                                                        }
-                                                    } else {
-                                                        for (int i = 0; i < processFileCount; i++) {
-                                                            int fileNo = processFileCount * (executor - 1) + i
-                                                            testExecutor.runPlan(files[fileNo], "node1")
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                def tests = testExecutor.getTestExecutionMap()
                                 parallel tests
                             } catch (e) {
                                 currentBuild.result = "FAILED"
@@ -241,7 +207,6 @@ def call() {
                 aws s3 sync ${TESTGRID_HOME}/jobs/${PRODUCT}/builds/ s3://${buckerName}/charts/${PRODUCT}/ --exclude "*" --include "*.png" --acl public-read
                 """
                             script {
-
                                 //Send email for failed results.
                                 if (fileExists("${PWD}/builds/SummarizedEmailReport.html")) {
                                     def emailBody = readFile "${PWD}/builds/SummarizedEmailReport.html"

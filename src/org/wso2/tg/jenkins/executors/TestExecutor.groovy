@@ -44,3 +44,41 @@ def runPlan(tPlan, node) {
     }
 }
 
+def getTestExecutionMap() {
+    def parallelExecCount = 12
+    def name = "unknown"
+    def tests = [:]
+    def files = findFiles(glob: '**/test-plans/*.yaml')
+    for (int f = 1; f < parallelExecCount + 1 && f <= files.length; f++) {
+        def executor = f
+        name = commonUtils.getParameters("${PWD}/test-plans/" + files[f - 1].name)
+        echo name
+        tests["${name}"] = {
+            node {
+                stage("Parallel Executor : ${executor}") {
+                    script {
+                        int processFileCount = 0;
+                        if (files.length < parallelExecCount) {
+                            processFileCount = 1;
+                        } else {
+                            processFileCount = files.length / parallelExecCount;
+                        }
+                        if (executor == parallelExecCount) {
+                            for (int i = processFileCount * (executor - 1); i < files.length; i++) {
+                                // Execution logic
+                                testExecutor.runPlan(files[i], "node1")
+                            }
+                        } else {
+                            for (int i = 0; i < processFileCount; i++) {
+                                int fileNo = processFileCount * (executor - 1) + i
+                                testExecutor.runPlan(files[fileNo], "node1")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return tests
+}
+
