@@ -1,5 +1,6 @@
 import org.wso2.tg.jenkins.Log
 import org.wso2.tg.jenkins.alert.Slack
+import org.wso2.tg.jenkins.util.Common
 
 // First we need to validate all the properties, variables for not null or empty in //vars
 
@@ -24,6 +25,7 @@ def call() {
     } else {
 
         def alert = new Slack()
+        def commonUtils = new Common()
         properties = null
 
         pipeline {
