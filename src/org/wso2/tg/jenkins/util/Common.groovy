@@ -4,6 +4,6 @@ package org.wso2.tg.jenkins.util
 
 class Common implements Serializable {
     def echoFunc() {
-        echo "Test Function 01"
+        //echo "Test Function 01"
     }
 }

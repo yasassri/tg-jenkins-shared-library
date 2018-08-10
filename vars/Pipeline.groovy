@@ -6,7 +6,7 @@ import org.wso2.tg.jenkins.util.Common
 def call() {
 
     def a = new Common()
-    a.echoFunc ()
+    a.echoFunc()
 
 //    pipeline {
 //        agent any
