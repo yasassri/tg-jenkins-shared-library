@@ -1,10 +1,12 @@
 package org.wso2.tg.jenkins.alert
 
+/**
+ *  Manages slack notifications for the build.
+ */
+class SlackNotifier implements Serializable {
 
-def send1Notificcationn (subject, content) {
-
+    boolean sendNotificcationn (subject, content) {
+        return true
+    }
 }
 
-def sendEmail (subject, content, attachmentPattern) {
-
-}
