@@ -5,7 +5,7 @@ class Log implements Serializable {
     void info (String message) {
         def time = getTimestamp()
         def msg = "[INFO] : " + time + " : " + message
-        echo msg.toString()
+        echo "Yes Yes"
     }
 
     void error (String message) {
