@@ -1,5 +1,5 @@
 <!--
-  ~  Copyright (c) 2005-2017, WSO2 Inc. (http://wso2.com) All Rights Reserved.
+  ~  Copyright (c) 2005-2018, WSO2 Inc. (http://wso2.com) All Rights Reserved.
   ~
   ~  WSO2 Inc. licenses this file to you under the Apache License,
   ~  Version 2.0 (the "License"); you may not use this file except
@@ -19,11 +19,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.wso2.testgrig.jenkins</groupId>
+    <groupId>org.wso2.testgrid.jenkins</groupId>
     <artifactId>testgrid-jenkins-library</artifactId>
     <version>0.1</version>
 
-    <name>TG Jenkins Runtime Library</name>
+    <name>TG Jenkins Common Library</name>
     <description>TG Execution libraries that are needed</description>
 
     <repositories>
