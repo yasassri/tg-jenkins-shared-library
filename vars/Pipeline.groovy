@@ -29,6 +29,7 @@ def call() {
         def alert = new Slack()
         def email = new Email()
         def commonUtils = new Common()
+        def awsHelper = new AWSUtils()
         def testExecutor = new TestExecutor()
         properties = null
 
@@ -186,11 +187,11 @@ def call() {
             """
 
                             sh """
-             cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
-            ./testgrid generate-report \
-            --product ${PRODUCT} \
-            --groupBy scenario
-            """
+                                 cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
+                                ./testgrid generate-report \
+                                --product ${PRODUCT} \
+                                --groupBy scenario
+                            """
                             // Generate email-able report
                             /* Prereq:
                            1. Needs TestSuit.txt and output.properties files in relevant scenario directory.
@@ -198,14 +199,14 @@ def call() {
                         */
                             def buckerName = getS3BucketName()
                             sh """
-                export DISPLAY=:95.0
-                cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
-                ./testgrid generate-email \
-                --product ${PRODUCT} \
-                --workspace ${PWD}
+                                export DISPLAY=:95.0
+                                cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
+                                ./testgrid generate-email \
+                                --product ${PRODUCT} \
+                                --workspace ${PWD}
 
-                aws s3 sync ${TESTGRID_HOME}/jobs/${PRODUCT}/builds/ s3://${buckerName}/charts/${PRODUCT}/ --exclude "*" --include "*.png" --acl public-read
-                """
+                            """
+                            awsHelper.uploadCharts()
                             script {
                                 //Send email for failed results.
                                 if (fileExists("${PWD}/builds/SummarizedEmailReport.html")) {

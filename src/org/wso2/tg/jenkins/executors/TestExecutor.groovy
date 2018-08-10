@@ -45,6 +45,7 @@ def runPlan(tPlan, node) {
 }
 
 def getTestExecutionMap() {
+    def commonUtils = new Common()
     def parallelExecCount = 12
     def name = "unknown"
     def tests = [:]
@@ -66,12 +67,12 @@ def getTestExecutionMap() {
                         if (executor == parallelExecCount) {
                             for (int i = processFileCount * (executor - 1); i < files.length; i++) {
                                 // Execution logic
-                                testExecutor.runPlan(files[i], "node1")
+                                runPlan(files[i], "node1")
                             }
                         } else {
                             for (int i = 0; i < processFileCount; i++) {
                                 int fileNo = processFileCount * (executor - 1) + i
-                                testExecutor.runPlan(files[fileNo], "node1")
+                                runPlan(files[fileNo], "node1")
                             }
                         }
                     }
