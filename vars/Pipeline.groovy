@@ -1,5 +1,6 @@
 import org.wso2.tg.jenkins.Log
 import org.wso2.tg.jenkins.alert.Slack
+import org.wso2.tg.jenkins.alert.Email
 import org.wso2.tg.jenkins.util.Common
 import org.wso2.tg.jenkins.executors.TestExecutor
 
@@ -7,8 +8,8 @@ import org.wso2.tg.jenkins.executors.TestExecutor
 
 // The pipeline should resite in a call block
 def call() {
-    def name1 = "b"
-    if (name1 == "a") {
+    def jobName = "test"
+    if (jobName == "test") {
         pipeline {
             agent any
             stages {
@@ -16,8 +17,8 @@ def call() {
                     steps {
                         script {
                             echo "This is a test"
-                            def a = new Log()
-                            a.info("This is a info")
+                            def a = new Email()
+                            a.send("This is a Test Email", "This is the Test Content")
                         }
                     }
                 }
@@ -246,7 +247,7 @@ def call() {
                                     emailext(to: "${EMAIL_TO_LIST},kasung@wso2.com,lasanthad@wso2.com,yasassri@wso2.com",
                                             subject: "'${env.JOB_NAME}' Integration Test Failure! #(${env.BUILD_NUMBER})",
                                             body: "${emailBody}", mimeType: 'text/html'
-                                    );
+                                    )
                                 } else {
                                     echo "No SummarizedEmailReport.html file found!!"
                                     emailext(to: 'sameeraw@wso2.com,lasanthad@wso2.com,yasassri@wso2.com,kasung@wso2.com',
