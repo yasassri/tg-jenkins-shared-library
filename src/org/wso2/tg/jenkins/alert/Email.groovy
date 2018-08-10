@@ -6,8 +6,8 @@ package org.wso2.tg.jenkins.alert
  */
 def send(subject,  content) {
     emailext(to: "${EMAIL_TO_LIST},kasung@wso2.com,lasanthad@wso2.com,yasassri@wso2.com",
-            subject: $subject,
-            body: $content, mimeType: 'text/html')
+            subject: subject,
+            body: content, mimeType: 'text/html')
 }
 
 boolean sendEmail(subject, content, attachmentPattern) {
