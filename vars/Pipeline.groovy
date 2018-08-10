@@ -1,4 +1,4 @@
-@Library('shared_library') _
+@Library('shared_library')
 
 import org.wso2.tg.jenkins.util.Common
 
