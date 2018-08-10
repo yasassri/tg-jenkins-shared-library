@@ -1,7 +1,10 @@
 package org.wso2.tg.jenkins.executors
 
+import org.wso2.tg.jenkins.util.Common
+
 def runPlan(tPlan, node) {
-    name = getParameters("/testgrid/testgrid-home/jobs/${PRODUCT}/${tPlan}")
+    def commonUtil = new Common()
+    name = commonUtil.getParameters("/testgrid/testgrid-home/jobs/${PRODUCT}/${tPlan}")
     notifyBuild("STARTED", "parallel \n Infra : " + name, "#build_status_verbose")
     echo "Executing Test Plan : ${tPlan} On node : ${node}"
     try {
