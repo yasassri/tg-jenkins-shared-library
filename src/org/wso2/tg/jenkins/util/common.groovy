@@ -9,5 +9,5 @@ package org.wso2.tg.jenkins.util
 //}
 
 void echoFunc() {
-    //echo "Test Function 01"
+    echo "Test Function 01"
 }

@@ -1,4 +1,4 @@
-import org.wso2.tg.jenkins.util.Common
+import org.wso2.tg.jenkins.util.common
 
 // First we need to validate all the properties, variables for not null or empty in //vars
 
@@ -12,7 +12,7 @@ def call() {
                 steps {
                     script {
                         echo "This is a test"
-                        def a = new Common()
+                        def a = new common()
                         a.echoFunc()
                     }
                 }
