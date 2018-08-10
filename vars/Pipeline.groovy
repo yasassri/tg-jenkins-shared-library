@@ -10,9 +10,11 @@ def call() {
         stages {
             stage('Testing') {
                 steps {
-                    echo "This is a test"
-                    def a = new Common()
-                    a.echoFunc()
+                    script {
+                        echo "This is a test"
+                        def a = new Common()
+                        a.echoFunc()
+                    }
                 }
             }
         }
