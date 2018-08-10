@@ -1,11 +1,7 @@
 package org.wso2.tg.jenkins.util
 
-//import com.cloudbees.groovy.cps.NonCPS
-
-class Common implements Serializable {
-    def echoFunc(msg) {
-        echo "Test Function 01 $msg"
-    }
+def getTimestamp(Date date = new Date()) {
+    return date.format('yyyyMMddHHmmss', TimeZone.getTimeZone('GMT')) as String
 }
 //@NonCPS
 //def echoFunc(msg) {
