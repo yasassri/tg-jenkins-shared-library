@@ -36,17 +36,3 @@ def runPlan(tPlan, node) {
     }
 }
 
-def getParameters(file) {
-    def tpyaml = readFile(file)
-    def m = tpyaml =~ /(parameters:)([A-z \n:'0-9\.-]*)(provisioners)/
-    // echo tpyaml
-    def params = m[0][2].trim().split('\n')
-    // echo Long.toString(params.size())
-    def name = ""
-    params = params.sort()
-    for (String s : params) {
-        name += s.split(":")[1]
-    }
-    //echo "This is the name" + name
-    return name
-}
