@@ -14,8 +14,8 @@ class Common implements Serializable {
 
 //return this
 
-def loadProperties() {
-    node {
-        properties = readProperties file: "${TESTGRID_HOME}/config.properties"
-    }
-}
+//def loadProperties() {
+//    node {
+//        properties = readProperties file: "${TESTGRID_HOME}/config.properties"
+//    }
+//}
