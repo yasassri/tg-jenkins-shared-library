@@ -12,3 +12,4 @@ def echoFunc() {
     echo "Test Function 01"
 }
 
+return this
