@@ -22,3 +22,5 @@ class Log implements Serializable {
     }
 
 }
+
+return this
