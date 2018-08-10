@@ -93,7 +93,7 @@ def call() {
 
                                 // Get testgrid.yaml from jenkins managed files
                                 configFileProvider(
-                                        [configFile(fileId: "${PRODUCT}-testgrid-yaml", targetLocation:
+                                        [configFile(fileId: "wso2am-intg-testgrid-yaml", targetLocation:
                                                 "${TESTGRID_YAML_LOCATION}")]) {
                                 }
 
