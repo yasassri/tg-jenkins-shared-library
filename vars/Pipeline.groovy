@@ -199,10 +199,10 @@ def call() {
                     script {
                         try {
                             sh """
-            cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
-            ./testgrid finalize-run-testplan \
-            --product ${PRODUCT} --workspace ${PWD}
-            """
+                                cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
+                                ./testgrid finalize-run-testplan \
+                                --product ${PRODUCT} --workspace ${PWD}
+                            """
 
                             sh """
                                  cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
