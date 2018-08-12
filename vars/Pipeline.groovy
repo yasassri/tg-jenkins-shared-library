@@ -154,7 +154,7 @@ def call() {
               echo '  TEST_MODE: ${TEST_MODE}' >> ${JOB_CONFIG_YAML_PATH}
               echo '  runOnBranch: "false"' >> ${JOB_CONFIG_YAML_PATH}
 
-              echo The job-config.yaml:
+              echo The job-config.yaml :
               cat ${JOB_CONFIG_YAML_PATH}
               """
 
