@@ -215,7 +215,6 @@ def call() {
                            1. Needs TestSuit.txt and output.properties files in relevant scenario directory.
                            2. DB needs to be updated on integration test result statues.
                         */
-                            def buckerName = getS3BucketName()
                             sh """
                                 export DISPLAY=:95.0
                                 cd ${TESTGRID_HOME}/testgrid-dist/${TESTGRID_NAME}
