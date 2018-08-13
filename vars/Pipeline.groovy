@@ -35,8 +35,19 @@ def call() {
                     steps {
                         script {
                             echo "This is a test"
+
                             def a = new Email()
-                            a.send("This is a Test Email", "This is the Test Content")
+                            if (fileExists("/home/ubuntu/tmp/a.html")) {
+                                def emailBody = readFile "/home/ubuntu/tmp/a.html"
+                                a.send("'${env.JOB_NAME}' Integration Test Failure! #(${env.BUILD_NUMBER})",
+                                        "${emailBody}")
+                            } else {
+                                echo "No SummarizedEmailReport.html file found!!"
+                                a.send("'${env.JOB_NAME}'#(${env.BUILD_NUMBER}) - SummarizedEmailReport.html " +
+                                        "file not found", "Could not find the summarized email report ${env.BUILD_URL}. This is an error in " +
+                                        "testgrid.")
+                            }
+                           // a.send("This is a Test Email", "This is the Test Content")
                         }
                     }
                 }
