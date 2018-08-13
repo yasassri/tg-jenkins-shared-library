@@ -26,7 +26,7 @@ import org.wso2.tg.jenkins.executors.TestExecutor
 
 // The pipeline should resite in a call block
 def call() {
-    def jobName = "dev"
+    def jobName = "test"
     if (jobName == "test") {
         pipeline {
             agent any
