@@ -119,7 +119,7 @@ def call() {
                 always {
                     script {
                         try {
-
+                            awsHelper.uploadCharts()
                             script {
                                 //Send email for failed results.
                                 if (fileExists("/home/ubuntu/tmp/a.html")) {
