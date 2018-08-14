@@ -29,7 +29,7 @@ def uploadCharts() {
     def s3BucketName = getS3BucketName()
     echo "Is this before error"
     sh """
-      aws s3 sync ${TESTGRID_HOME}/jobs/${PRODUCT}/builds/ s3://${buckerName}/charts/${PRODUCT}/ --exclude "*" --include "*.png" --acl public-read
+      aws s3 sync ${TESTGRID_HOME}/jobs/${PRODUCT}/builds/ s3://${s3BucketName}/charts/${PRODUCT}/ --exclude "*" --include "*.png" --acl public-read
       """
 }
 
@@ -40,7 +40,9 @@ def loadProperties() {
 }
 
 def getS3BucketName() {
+    echo "Before reading properties"
     def properties = readProperties file: "${TESTGRID_HOME}/config.properties"
+    echo "After reading properties"
     def bucket = properties['AWS_S3_BUCKET_NAME']
     if ("${bucket}" == "null") {
         bucket = "unknown"
